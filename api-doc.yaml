@@ -1,0 +1,131 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Credit-card-service"
+host: "localhost:5003"
+tags:
+- name: "Pagamento"
+schemes:
+- "https"
+- "http"
+paths:
+  /v1/public/pagamentos:
+    post:
+      tags:
+      - "Pagamento"
+      summary: "Registra pagamento"
+      description: ""
+      operationId: "addPagamento"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "Authorization"
+        description: "Token para autenticação"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/PagamentoPost"
+      responses:
+        201:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Pagamento"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/error"
+        422:
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/validationFaill"
+  /v1/pagamentos/{pagamentosId}:
+    get:
+      tags:
+      - "Pagamento"
+      summary: "Retorna um pagamento"
+      description: "Returns a single pet"
+      operationId: "getPetById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pagamentosId"
+        in: "path"
+        description: "ID of pet to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PagamentoWithId"
+        404:
+          description: "Pagamento not found"
+definitions:
+  PagamentoPost:
+    type: "object"
+    properties:
+      numero_cartão:
+        type: "string"
+      valor:
+        type: "integer"
+        format: "int32"
+      pedidos_id:
+        type: "integer"
+  Pagamento:
+    type: "object"
+    properties:
+      usuario:
+        $ref: '#/definitions/Usuario'
+      numero_cartão:
+        type: "string"
+      valor:
+        type: "integer"
+        format: "int32"
+      pedidos_id:
+        type: "integer"
+  PagamentoWithId:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      usuario:
+        $ref: '#/definitions/Usuario'
+      numero_cartão:
+        type: "string"
+      valor:
+        type: "integer"
+        format: "int32"
+      pedidos_id:
+        type: "integer"
+  Usuario:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      cpf:
+        type: "string"
+  validationFaill:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      errors:
+        type: "object"
+  error:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
