@@ -68,5 +68,5 @@ Route::get('/v1/public/pagamentos/{pagamentoId}', function ($pagamentoId) {
 });
 
 Route::get('/',function(){
-    return(['message'=>'worked']):
+    return(['message'=>'worked']);
 }):
