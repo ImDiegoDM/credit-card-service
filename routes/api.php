@@ -27,7 +27,7 @@ Route::post('/v1/public/pagamentos', function () {
         return response(['message'=>'Authorization header is missing'],400);
     }
     try{
-        $res = $client->request('GET', 'http://localhost:5001/user/'.$token);
+        $res = $client->request('GET', 'https://dry-mesa-35311.herokuapp.com/v1/public/usuarios/'.$token);
         $status = $res->getStatusCode();
         if($status==200){
             return([
