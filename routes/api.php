@@ -66,3 +66,7 @@ Route::get('/v1/public/pagamentos/{pagamentoId}', function ($pagamentoId) {
         'pedidos_id'=> 1
     ]);
 });
+
+Route::get('/',function(){
+    return(['message'=>'worked']):
+}):
